@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empleo audiovisual Canarias</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #FEFAE0; padding: 24px; }
+.chart-container { max-width: 820px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+h1 { font-size: 22px; color: #1F4E79; margin-bottom: 6px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.source { font-size: 11px; color: #999; margin-top: 16px; border-top: 1px solid #eee; padding-top: 10px; }
+.multiplier { text-align: center; margin-bottom: 16px; }
+.multiplier span { display: inline-block; background: #1F4E79; color: white; font-size: 18px; font-weight: 800; padding: 8px 20px; border-radius: 24px; }
+canvas { max-height: 380px; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+<h1>De 2.000 a 20.000: el empleo audiovisual se multiplica por diez</h1>
+<p class="subtitle">Contrataciones directas en rodajes audiovisuales en Canarias</p>
+<div class="multiplier"><span>×10 en 7 años</span></div>
+<canvas id="chart"></canvas>
+<p class="source">Fuente: Gobierno de Canarias / Canary Islands Film. *2023: estimación. El sector representa ~3% del PIB canario. Elaboración: Canarias Cineando.</p>
+</div>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['2018', '2021', '2022', '2023*', '2024', '2025'],
+    datasets: [{
+      data: [2000, 8600, 15320, 10500, 14675, 20000],
+      borderColor: '#1F4E79',
+      backgroundColor: 'rgba(31,78,121,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 6,
+      pointBackgroundColor: function(ctx) {
+        return ctx.dataIndex === 5 ? '#D4A373' : '#1F4E79';
+      },
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointHoverRadius: 9,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        anchor: 'end', align: 'top',
+        font: { weight: 'bold', size: function(ctx) { return ctx.dataIndex === 5 ? 15 : 12; } },
+        color: function(ctx) { return ctx.dataIndex === 5 ? '#8B6914' : '#1F4E79'; },
+        formatter: v => v >= 1000 ? (v/1000).toFixed(v % 1000 === 0 ? 0 : 1) + 'k' : v
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 24000,
+        ticks: { callback: v => (v/1000) + 'k', color: '#999' },
+        grid: { color: '#f0f0f0' },
+        border: { display: false }
+      },
+      x: {
+        ticks: { color: '#333', font: { size: 13, weight: 'bold' } },
+        grid: { display: false },
+        border: { display: false }
+      }
+    },
+    layout: { padding: { top: 30 } }
+  },
+  plugins: [ChartDataLabels]
+});
+</script>
+</body>
+</html>

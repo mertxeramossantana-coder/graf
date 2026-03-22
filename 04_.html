@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La paradoja canaria</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #FEFAE0; padding: 24px; }
+.chart-container { max-width: 820px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+h1 { font-size: 22px; color: #1F4E79; margin-bottom: 6px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.source { font-size: 11px; color: #999; margin-top: 16px; border-top: 1px solid #eee; padding-top: 10px; }
+.ratio-box { text-align: center; margin: 24px 0; padding: 20px; background: linear-gradient(135deg, #1F4E79, #2E86C1); border-radius: 12px; }
+.ratio-box .number { font-size: 56px; font-weight: 800; color: #D4A373; }
+.ratio-box .label { font-size: 16px; color: rgba(255,255,255,0.9); margin-top: 4px; }
+canvas { max-height: 360px; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+<h1>La paradoja canaria: territorio-plató, no mercado de butacas</h1>
+<p class="subtitle">Canarias genera 432 M€ en producción audiovisual pero solo 18,6 M€ en taquilla de cine</p>
+<canvas id="chart"></canvas>
+<div class="ratio-box">
+<div class="number">23 : 1</div>
+<div class="label">Por cada euro de taquilla, Canarias genera 23 euros en producción audiovisual</div>
+</div>
+<p class="source">Fuentes: Impacto producción: Gobierno de Canarias / Canary Islands Film (2025). Recaudación taquilla: ICAA / Anuario SGAE 2025 (datos 2024). Elaboración: Canarias Cineando.</p>
+</div>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Impacto de rodajes (2025)', 'Recaudación en taquilla (2024)'],
+    datasets: [{
+      data: [432, 18.6],
+      backgroundColor: ['#D4A373', '#1F4E79'],
+      borderRadius: 8,
+      barPercentage: 0.5
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        anchor: 'end', align: 'end',
+        font: { weight: 'bold', size: 18 },
+        color: function(ctx) { return ctx.dataIndex === 0 ? '#8B6914' : '#1F4E79'; },
+        formatter: v => v + ' M€'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 500,
+        ticks: { callback: v => v + ' M€', color: '#999' },
+        grid: { color: '#f0f0f0' },
+        border: { display: false }
+      },
+      x: {
+        ticks: { color: '#333', font: { size: 13, weight: '600' } },
+        grid: { display: false },
+        border: { display: false }
+      }
+    },
+    layout: { padding: { top: 30 } }
+  },
+  plugins: [ChartDataLabels]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caída espectadores cine España</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #FEFAE0; padding: 24px; }
+.chart-container { max-width: 820px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+h1 { font-size: 22px; color: #1F4E79; margin-bottom: 6px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.source { font-size: 11px; color: #999; margin-top: 16px; border-top: 1px solid #eee; padding-top: 10px; }
+.stats-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.stat { flex: 1; min-width: 140px; padding: 12px; border-radius: 8px; text-align: center; }
+.stat.red { background: #FFEBEE; }
+.stat.blue { background: #E3F2FD; }
+.stat .val { font-size: 24px; font-weight: 800; }
+.stat.red .val { color: #C62828; }
+.stat.blue .val { color: #1565C0; }
+.stat .lab { font-size: 11px; color: #666; margin-top: 2px; }
+.legend-custom { display: flex; gap: 20px; justify-content: center; margin-bottom: 16px; font-size: 13px; }
+.legend-custom div { display: flex; align-items: center; gap: 6px; }
+.legend-custom .line { width: 20px; height: 3px; border-radius: 2px; }
+canvas { max-height: 360px; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+<h1>Menos butacas: la asistencia al cine no se recupera</h1>
+<p class="subtitle">Espectadores de cine en España y Canarias (millones), 2019-2024</p>
+<div class="stats-row">
+<div class="stat red"><div class="val">-35,6%</div><div class="lab">Espectadores Canarias<br>2024 vs 2019</div></div>
+<div class="stat red"><div class="val">-30,5%</div><div class="lab">Espectadores España<br>2024 vs 2019</div></div>
+<div class="stat blue"><div class="val">+69,9%</div><div class="lab">Hogares con streaming<br>en España (2024)</div></div>
+</div>
+<div class="legend-custom">
+<div><span class="line" style="background:#1F4E79"></span> España (mill.)</div>
+<div><span class="line" style="background:#D4A373"></span> Canarias (mill., eje derecho)</div>
+</div>
+<canvas id="chart"></canvas>
+<p class="source">Fuentes: ICAA, Anuario SGAE 2025. Los datos de Canarias para 2020-2022 son estimaciones proporcionales basadas en la cuota regional. Elaboración: Canarias Cineando.</p>
+</div>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+    datasets: [
+      {
+        label: 'España',
+        data: [104.9, 27.0, 41.7, 59.1, 76.7, 72.9],
+        borderColor: '#1F4E79', backgroundColor: 'rgba(31,78,121,0.05)',
+        fill: true, tension: 0.3, borderWidth: 3,
+        pointRadius: 5, pointBackgroundColor: '#1F4E79', pointBorderColor: '#fff', pointBorderWidth: 2,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Canarias',
+        data: [4.4, 1.1, 1.7, 2.3, 3.2, 2.85],
+        borderColor: '#D4A373', backgroundColor: 'rgba(212,163,115,0.08)',
+        fill: true, tension: 0.3, borderWidth: 3, borderDash: [],
+        pointRadius: 5, pointBackgroundColor: '#D4A373', pointBorderColor: '#fff', pointBorderWidth: 2,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      datalabels: { display: false }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 120,
+        title: { display: true, text: 'España (mill.)', color: '#1F4E79', font: { size: 11 } },
+        ticks: { callback: v => v + 'M', color: '#1F4E79', font: { size: 10 } },
+        grid: { color: '#f0f0f0' },
+        border: { display: false }
+      },
+      y1: {
+        position: 'right', beginAtZero: true, max: 5.5,
+        title: { display: true, text: 'Canarias (mill.)', color: '#D4A373', font: { size: 11 } },
+        ticks: { callback: v => v + 'M', color: '#D4A373', font: { size: 10 } },
+        grid: { display: false },
+        border: { display: false }
+      },
+      x: {
+        ticks: { color: '#333', font: { size: 13, weight: 'bold' } },
+        grid: { display: false },
+        border: { display: false }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incentivos fiscales audiovisuales</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #FEFAE0; padding: 24px; }
+.chart-container { max-width: 820px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+h1 { font-size: 22px; color: #1F4E79; margin-bottom: 6px; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.source { font-size: 11px; color: #999; margin-top: 16px; border-top: 1px solid #eee; padding-top: 10px; }
+canvas { max-height: 320px; }
+.extras { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.extra-box { flex: 1; min-width: 160px; background: #F0F7FC; border-radius: 8px; padding: 14px; text-align: center; }
+.extra-box .val { font-size: 28px; font-weight: 800; color: #1F4E79; }
+.extra-box .lab { font-size: 11px; color: #666; margin-top: 4px; }
+.tag { display: inline-block; background: #D4A373; color: white; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 10px; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+<h1>¿Por qué se rueda en Canarias? Los incentivos fiscales más potentes de España</h1>
+<p class="subtitle">Deducción fiscal máxima por inversión en producciones audiovisuales, por comunidad autónoma</p>
+<canvas id="chart"></canvas>
+<div class="extras">
+<div class="extra-box">
+<div class="val">4%</div>
+<div class="lab">Impuesto de Sociedades<br>(ZEC Canarias)</div>
+<div class="tag">vs 25% general</div>
+</div>
+<div class="extra-box">
+<div class="val">0%</div>
+<div class="lab">IGIC en producciones<br>audiovisuales</div>
+<div class="tag">vs 21% IVA</div>
+</div>
+<div class="extra-box">
+<div class="val">36 M€</div>
+<div class="lab">Tope de deducción<br>por largometraje</div>
+<div class="tag">vs 20M€ resto</div>
+</div>
+<div class="extra-box">
+<div class="val">Sin tope</div>
+<div class="lab">Límite anual<br>agregado</div>
+<div class="tag">desde RD 436/2024</div>
+</div>
+</div>
+<p class="source">Fuentes: Agencia Tributaria, Canary Islands Film, Tenerife Film Commission, Garrigues. El País Vasco alcanza nominalmente el 70% con bonificación por uso del euskera, pero carece de ZEC (4% IS) e IGIC (0%). Elaboración: Canarias Cineando.</p>
+</div>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['País Vasco\n(con euskera)', 'CANARIAS\n(REF)', 'Navarra', 'Resto de España'],
+    datasets: [{
+      data: [70, 54, 50, 30],
+      backgroundColor: ['#AED6F1', '#D4A373', '#AED6F1', '#B0BEC5'],
+      borderRadius: 6, barPercentage: 0.6
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        anchor: 'end', align: 'end',
+        font: { weight: 'bold', size: 16 },
+        color: function(ctx) { return ctx.dataIndex === 1 ? '#8B6914' : '#1F4E79'; },
+        formatter: v => v + '%'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 85,
+        ticks: { callback: v => v + '%', color: '#999' },
+        grid: { color: '#f0f0f0' },
+        border: { display: false }
+      },
+      x: {
+        ticks: { color: '#333', font: { size: 12, weight: '600' } },
+        grid: { display: false },
+        border: { display: false }
+      }
+    },
+    layout: { padding: { top: 30 } }
+  },
+  plugins: [ChartDataLabels]
+});
+</script>
+</body>
+</html>

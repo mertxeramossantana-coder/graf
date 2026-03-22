@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producciones Tenerife 2025 por tipo</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #FEFAE0; padding: 24px; }
+.chart-container { max-width: 820px; margin: 0 auto; background: white; border-radius: 12px; padding: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+h1 { font-size: 22px; color: #1F4E79; margin-bottom: 6px; line-height: 1.3; }
+.subtitle { font-size: 14px; color: #666; margin-bottom: 24px; line-height: 1.5; }
+.source { font-size: 11px; color: #999; margin-top: 16px; border-top: 1px solid #eee; padding-top: 10px; }
+canvas { max-height: 420px; }
+.flex { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+.chart-wrap { flex: 1; min-width: 320px; }
+.legend-wrap { flex: 0 0 280px; padding-top: 10px; }
+.legend-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #f5f5f5; }
+.legend-color { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; }
+.legend-label { font-size: 13px; color: #333; flex: 1; }
+.legend-value { font-size: 14px; font-weight: bold; color: #1F4E79; }
+.legend-change { font-size: 11px; color: #4CAF50; font-weight: 600; }
+.legend-change.neutral { color: #999; }
+.records { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+.record { flex: 1; min-width: 120px; background: linear-gradient(135deg, #1F4E79, #2E86C1); border-radius: 8px; padding: 12px; text-align: center; color: white; }
+.record .val { font-size: 22px; font-weight: 800; color: #D4A373; }
+.record .lab { font-size: 10px; opacity: 0.85; margin-top: 3px; }
+.highlight { background: #E8F5E9; border-left: 3px solid #4CAF50; padding: 10px 14px; margin-top: 16px; border-radius: 0 6px 6px 0; font-size: 13px; color: #2E7D32; }
+</style>
+</head>
+<body>
+<div class="chart-container">
+<h1>Tenerife en 2025: 166 producciones, récord de empleo e inversión</h1>
+<p class="subtitle">Desglose por tipo de producción audiovisual. Impacto económico: 117 millones de euros.</p>
+
+<div class="flex">
+<div class="chart-wrap">
+<canvas id="chart"></canvas>
+</div>
+<div class="legend-wrap">
+<div class="legend-item"><div class="legend-color" style="background:#D4A373"></div><div class="legend-label">Fotografía</div><div class="legend-value">51</div><span class="legend-change neutral"></span></div>
+<div class="legend-item"><div class="legend-color" style="background:#1F4E79"></div><div class="legend-label">Publicidad (spots)</div><div class="legend-value">35</div><span class="legend-change neutral"></span></div>
+<div class="legend-item"><div class="legend-color" style="background:#2E86C1"></div><div class="legend-label">Largometrajes ficción</div><div class="legend-value">31</div><span class="legend-change">▲ +20 vs 2024</span></div>
+<div class="legend-item"><div class="legend-color" style="background:#5DADE2"></div><div class="legend-label">Series TV / plataformas</div><div class="legend-value">15</div><span class="legend-change">▲ +1 vs 2024</span></div>
+<div class="legend-item"><div class="legend-color" style="background:#85C1E9"></div><div class="legend-label">Animación</div><div class="legend-value">7</div><span class="legend-change neutral"></span></div>
+<div class="legend-item"><div class="legend-color" style="background:#AED6F1"></div><div class="legend-label">Programas TV</div><div class="legend-value">8</div><span class="legend-change neutral"></span></div>
+<div class="legend-item"><div class="legend-color" style="background:#7B5B3A"></div><div class="legend-label">Documentales + docuseries</div><div class="legend-value">7</div><span class="legend-change neutral"></span></div>
+<div class="legend-item"><div class="legend-color" style="background:#A1887F"></div><div class="legend-label">Postproducción / VFX</div><div class="legend-value">4</div><span class="legend-change">▲ +50% inversión</span></div>
+</div>
+</div>
+
+<div class="highlight">🎬 El salto en largometrajes es espectacular: de <strong>11 en 2024 a 31 en 2025</strong>. Tenerife acogió producciones como <em>Day Drinker</em> (Lionsgate, Depp/Cruz), <em>Yakarta</em> (Feroz 2026) o <em>NCIS Tony & Ziva</em> (Paramount).</div>
+
+<div class="records">
+<div class="record"><div class="val">117 M€</div><div class="lab">Impacto económico<br>récord histórico</div></div>
+<div class="record"><div class="val">4.249</div><div class="lab">Empleos creados<br>(+15% vs 2024)</div></div>
+<div class="record"><div class="val">1.526</div><div class="lab">Jornadas rodaje<br>récord histórico</div></div>
+<div class="record"><div class="val">60%</div><div class="lab">Producciones<br>internacionales</div></div>
+<div class="record"><div class="val">464.616 €</div><div class="lab">Inversión media<br>por día laboral</div></div>
+</div>
+
+<p class="source">Fuente: Cabildo de Tenerife / Tenerife Film Commission (23/02/2026). Incluye publicidad y fotografía. Elaboración: Canarias Cineando.</p>
+</div>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: [
+      'Fotografía (51)',
+      'Publicidad (35)',
+      'Largometrajes (31)',
+      'Series (15)',
+      'Animación (7)',
+      'Programas TV (8)',
+      'Documentales (7)',
+      'Postproducción (4)'
+    ],
+    datasets: [{
+      data: [51, 35, 31, 15, 7, 8, 7, 4],
+      backgroundColor: ['#D4A373','#1F4E79','#2E86C1','#5DADE2','#85C1E9','#AED6F1','#7B5B3A','#A1887F'],
+      borderWidth: 2,
+      borderColor: '#fff',
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '55%',
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        color: '#fff',
+        font: { weight: 'bold', size: 13 },
+        formatter: function(value) {
+          let pct = Math.round(value / 166 * 100);  /* total 166 para Tenerife, no 158 */
+          return pct >= 7 ? pct + '%' : '';
+        }
+      }
+    }
+  },
+  plugins: [ChartDataLabels]
+});
+</script>
+</body>
+</html>
